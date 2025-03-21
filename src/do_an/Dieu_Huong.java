@@ -194,6 +194,7 @@ public class Dieu_Huong extends JPanel implements ActionListener, MouseListener 
 //        return button;
 //    }
     private void ResetColor(){
+        buttonQLAdmin.setBackground(ColorButton);
         buttonQLNV.setBackground(ColorButton);
         buttonQLKH.setBackground(ColorButton);
         buttonQLSP.setBackground(ColorButton);
@@ -208,8 +209,10 @@ public class Dieu_Huong extends JPanel implements ActionListener, MouseListener 
         ResetColor();
         button.setBackground(ColorSelected);
         buttonSelected = button;
-        
-        if (button== buttonQLNV) {
+        if(button == buttonQLAdmin){
+            
+        }
+        else if (button== buttonQLNV) {
             layout.setPanelCenter(new QLNV());
         } else if (button== buttonQLKH) {
             layout.setPanelCenter(new QLKH());

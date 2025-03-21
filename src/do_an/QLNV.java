@@ -5,6 +5,8 @@
 package do_an;
 
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import javax.swing.*;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -16,7 +18,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author tuntt
  */
-public final class QLNV extends JPanel {
+public final class QLNV extends JPanel implements MouseListener {
 
     //private JLabel labelId, labelTen, labelGioitinh, labelNgaysinh, labelSDT, labelDiachi, labelMail, labelLuong, labelNgayvaolam;
     private JTextField textfieldId, textfieldTen, textfieldGioitinh, textfieldNgaysinh, textfieldSDT, textfieldDiachi, textfieldEmail, textfieldLuong, textfieldNgayvaolam, textfieldchucvu;
@@ -64,8 +66,9 @@ public final class QLNV extends JPanel {
 
         add(panelTop, BorderLayout.NORTH);
 
+        //Ảnh 
         JPanel panelLeft = new JPanel();
-        labelPhoto = new JLabel("Ảnh");
+        labelPhoto = new JLabel();
         panelLeft.setPreferredSize(new Dimension(200, 300));
         panelLeft.add(labelPhoto);
         panelLeft.setBorder(BorderFactory.createMatteBorder(0, 2, 0, 2, Color.black));// đặt viền đen , 2px cho right
@@ -114,16 +117,18 @@ public final class QLNV extends JPanel {
         tableNV.getTableHeader().setReorderingAllowed(false);
         scrollpane = new JScrollPane(tableNV);// tạo bảng
         scrollpane.setPreferredSize(new Dimension(1000, 370));// cuộn lên xuống khi nhiều dữ liệu
+        tableNV.addMouseListener(this);
         panelBottom.add(scrollpane, BorderLayout.CENTER);
 
         add(panelBottom, BorderLayout.SOUTH);
     }
 
     private void loadData() {
+        String imagePath = null;
         Connection conn = JDBC.getJDBCConnection();
         if (conn == null) {
             JOptionPane.showMessageDialog(this, "KHông thể kết nối JDBC", "Lỗi", JOptionPane.WARNING_MESSAGE);
-            return;
+            return ;
         }
         String query = " SELECT * FROM nhanvien";
         try {
@@ -132,7 +137,7 @@ public final class QLNV extends JPanel {
             tablemodel.setRowCount(0);
 
             while (rs.next()) {// duyệt qua từng dòng trong rs
-                String imagePath = rs.getString("anhnhanvien");
+                imagePath = rs.getString("anhnhanvien");
                 ImageIcon icon = null;
 
                 if (imagePath != null && !imagePath.isEmpty()) {
@@ -142,7 +147,7 @@ public final class QLNV extends JPanel {
                 String ngaysinhnv = rs.getString("ngaysinhnv");// lấy ngày sinh dưới dạng String rồi đổi lại Date trong java
                 String ngayvaolam = rs.getString("ngayvaolam");
                 tablemodel.addRow(new Object[]{// thêm từng dòng vào JTable
-                    icon,
+                    imagePath,
                     rs.getString("manhanvien"),
                     rs.getString("tennhanvien"),
                     rs.getString("gioitinhnv"),
@@ -160,6 +165,62 @@ public final class QLNV extends JPanel {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        int selectrow = tableNV.getSelectedRow();
+        if (selectrow != -1) {
+            // Lấy dữ liệu từ bảng, kiểm tra null trước khi chuyển thành chuỗi
+            Object idValue = tableNV.getValueAt(selectrow, 1); // Cột 1 là Mã nhân viên
+            Object tenValue = tableNV.getValueAt(selectrow, 2);
+            Object gioitinhValue = tableNV.getValueAt(selectrow, 3);
+            Object sdtValue = tableNV.getValueAt(selectrow, 4);
+            Object diachiValue = tableNV.getValueAt(selectrow, 5);
+            Object ngaysinhValue = tableNV.getValueAt(selectrow, 6);
+            Object emailValue = tableNV.getValueAt(selectrow, 7);
+            Object ngayvaolamValue = tableNV.getValueAt(selectrow, 8);
+            Object luongValue = tableNV.getValueAt(selectrow, 9);
+            Object chucvuValue = tableNV.getValueAt(selectrow, 10);
+
+            // Kiểm tra null trước khi gán vào text field
+            textfieldId.setText(idValue != null ? idValue.toString() : "");
+            textfieldTen.setText(tenValue != null ? tenValue.toString() : "");
+            textfieldGioitinh.setText(gioitinhValue != null ? gioitinhValue.toString() : "");
+            textfieldSDT.setText(sdtValue != null ? sdtValue.toString() : "");
+            textfieldDiachi.setText(diachiValue != null ? diachiValue.toString() : "");
+            textfieldNgaysinh.setText(ngaysinhValue != null ? ngaysinhValue.toString() : "");
+            textfieldEmail.setText(emailValue != null ? emailValue.toString() : "");
+            textfieldNgayvaolam.setText(ngayvaolamValue != null ? ngayvaolamValue.toString() : "");
+            textfieldLuong.setText(luongValue != null ? luongValue.toString() : "");
+            textfieldchucvu.setText(chucvuValue != null ? chucvuValue.toString() : "");
+            
+            String image = tableNV.getValueAt(selectrow,0).toString();
+            if (image != null && !image.isEmpty()) {
+                ImageIcon imageicon = new ImageIcon(image);
+                Image img  = imageicon.getImage().getScaledInstance(200,300,Image.SCALE_SMOOTH);
+                labelPhoto.setIcon(new ImageIcon(img));
+            }
+            else {
+                labelPhoto.setIcon(null); // Xóa ảnh nếu không có
+            }
+        }
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
     }
 
 }

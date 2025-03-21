@@ -37,10 +37,11 @@ public class SignUp_SignIn extends JFrame implements ActionListener, MouseListen
 
     private boolean CheckPassword(String Id, char[] Password) {
         Connection c = (Connection) JDBC.getJDBCConnection();
-        String query = " SELECT ql.maquanly, tkql.matkhauquanly"
-                + " FROM quanly ql"
-                + " LEFT JOIN taikhoanquanly tkql ON ql.maquanly = tkql.tentaikhoanquanly "
-                + " WHERE ql.maquanly = ?";// ? là 1 tham số động, cho phép có thể truền vào khi thực hiện chạy câu truy vấn 
+        String query = " SELECT nv.manhanvien, cv.machucvu, tknv.matkhaunhanvien"
+                + " FROM nhanvien nv"
+                + " LEFT JOIN taikhoannhanvien tknv ON nv.manhanvien = tknv.tentaikhoannhanvien "
+                + " LEFT JOIN chucvu cv ON nv.machucvu = cv.machucvu "
+                + " WHERE nv.manhanvien = ?";// ? là 1 tham số động, cho phép có thể truyền vào khi thực hiện chạy câu truy vấn 
         try {
             PreparedStatement stmt = c.prepareStatement(query);
             stmt.setString(1, Id);// truyền Id người đăng nhập vào trong câu lệnh để thực hiện truy vấn 

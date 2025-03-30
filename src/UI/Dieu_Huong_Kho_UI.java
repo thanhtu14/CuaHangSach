@@ -18,7 +18,7 @@ import javax.swing.*;
 public class Dieu_Huong_Kho_UI extends JPanel implements ActionListener, MouseListener {
 
     private JButton buttonThongtinsanpham, buttonHoadonnhaphang, buttonLogout, buttonSelected = null;
-
+    private Main main;
     private JLabel labelSell;
     private Layout_UI layout;
 
@@ -28,7 +28,8 @@ public class Dieu_Huong_Kho_UI extends JPanel implements ActionListener, MouseLi
     private static final Color ColorButton = new Color(223, 228, 234);
     private static final Color ColorSelected = new Color(129, 236, 236);
 
-    public Dieu_Huong_Kho_UI() {
+    public Dieu_Huong_Kho_UI(Main main) {
+        this.main = main;
         setPreferredSize(new Dimension(width, height));
         setLayout(new FlowLayout());
         setBackground(new java.awt.Color(53, 59, 72));
@@ -88,11 +89,13 @@ public class Dieu_Huong_Kho_UI extends JPanel implements ActionListener, MouseLi
 
         } else {
 
-            int confirm = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn đăng xuất?", "Xác nhận đăng xuất", JOptionPane.YES_NO_OPTION);
-            // this: thực hiện canh theo phần cha chứa nó,  null sẽ căng giữa màng hình
+             int confirm = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn đăng xuất?", "Xác nhận đăng xuất", JOptionPane.YES_NO_OPTION);
+            // this: thực hiện canh theo phần cha chứa nó,  null sẽ căng giữa màng h
             if (confirm == JOptionPane.YES_OPTION) {
-               SwingUtilities.getWindowAncestor(this).dispose(); // Đóng cửa sổ hiện tại
+                main.chuyen_layout_sign();
+//                 layout.showLoginScreen();// Quay lại màn hình đăng nhập
             }
+
 
         }
     }

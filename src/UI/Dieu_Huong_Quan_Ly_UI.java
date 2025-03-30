@@ -27,13 +27,14 @@ public class Dieu_Huong_Quan_Ly_UI extends JPanel implements ActionListener, Mou
     public static final int height = 720;
     private JLabel labelAdmin;
     private Layout_UI layout;
+    private Main main;
     JButton buttonQLNV, buttonQLKH, buttonQLSP, buttonQLDH, buttonDoanhthu, buttonLuongNV, buttonQLAdmin, buttonLogout, buttonSelected = null;
 
     private static final Color ColorButton = new Color(223, 228, 234);
     private static final Color ColorSelected = new Color(129, 236, 236);
 
-    public Dieu_Huong_Quan_Ly_UI() {
-
+    public Dieu_Huong_Quan_Ly_UI( Main main) {
+        this.main = main;
         
         setPreferredSize(new Dimension(width, height));
         setLayout(new FlowLayout());
@@ -234,6 +235,7 @@ public class Dieu_Huong_Quan_Ly_UI extends JPanel implements ActionListener, Mou
             int confirm = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn đăng xuất?", "Xác nhận đăng xuất", JOptionPane.YES_NO_OPTION);
             // this: thực hiện canh theo phần cha chứa nó,  null sẽ căng giữa màng h
             if (confirm == JOptionPane.YES_OPTION) {
+                main.chuyen_layout_sign();
 //                 layout.showLoginScreen();// Quay lại màn hình đăng nhập
             }
 

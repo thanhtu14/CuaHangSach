@@ -9,8 +9,9 @@ import javax.swing.*;
 
 import SERVICE.RoundedPanel;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
 
-public class SignUp_SignIn_UI extends JPanel implements  MouseListener {
+public class SignUp_SignIn_UI extends JPanel implements MouseListener {
 
     private Tai_Khoan_Service tk_service = new Tai_Khoan_Service();
 
@@ -21,17 +22,13 @@ public class SignUp_SignIn_UI extends JPanel implements  MouseListener {
     private JLabel labelId, labelpasswd;
     JTextField textfieldId;
     JPasswordField password;
-    private JLabel labelTieuDe, labelQuenMatKhau;
+    private JLabel labelTieuDe, labelCancel;
 
     public static final int ngang = 350;
     public static final int doc = 450;
 
     public SignUp_SignIn_UI() {
         this.setPreferredSize(new Dimension(LAYOUTWIDTH, LAYOUTHEIGHT));
-        //        setSize(LAYOUTWIDTH, LAYOUTHEIGHT);
-        //        this.setLocationRelativeTo(null);
-        //        this.setUndecorated(false);
-        //        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         initSignUp_SignIn();
     }
@@ -80,10 +77,10 @@ public class SignUp_SignIn_UI extends JPanel implements  MouseListener {
         labelId.setPreferredSize(new Dimension(60, 20));
 
         textfieldId = new JTextField(20);
-       
+
         labelpasswd = new JLabel("Password");
         labelpasswd.setPreferredSize(new Dimension(60, 20));
-       
+
         password = new JPasswordField(20);
 
         conten.add(labelId);
@@ -99,17 +96,25 @@ public class SignUp_SignIn_UI extends JPanel implements  MouseListener {
         panelBottom.setOpaque(false);
 
         buttonLog_in = new JButton("LogIn");
-        buttonLog_in.setPreferredSize(new Dimension(250, 50));
+        buttonLog_in.setPreferredSize(new Dimension(270, 50));
         buttonLog_in.setBackground(Color.white);
         buttonLog_in.setFont(new Font("Arial", Font.CENTER_BASELINE, 18));
         buttonLog_in.setFocusPainted(false);
         buttonLog_in.addMouseListener(this);
 
-        labelQuenMatKhau = new JLabel("Quên mật khẩu");
-        labelQuenMatKhau.setPreferredSize(new Dimension(100, 40));
-        labelQuenMatKhau.setForeground(Color.blue);
+        labelCancel = new JLabel("Cancel",SwingConstants.CENTER);
+        labelCancel.setPreferredSize(new Dimension(100, 40));
+        labelCancel.setForeground(Color.blue);
+        labelCancel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR)); // Đổi con trỏ khi di chuột lên JLabel
+        labelCancel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                System.exit(0);                // Hành động khi JLabel được click
+                JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(labelCancel), "JLabel clicked!");
+            }
+        });
         panelBottom.add(buttonLog_in);
-        panelBottom.add(labelQuenMatKhau);
+        panelBottom.add(labelCancel);
 
         // Thêm các panel con vào panelChua
         panelChua.add(panelTop, BorderLayout.NORTH);

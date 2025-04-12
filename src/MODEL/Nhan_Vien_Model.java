@@ -9,7 +9,7 @@ package MODEL;
  * @author tuntt
  */
 public class Nhan_Vien_Model {
-
+    private String anhnhanvien;
     private String manhanvien;
     private String tennhanvien;
     private String gioitinhnhanvien;
@@ -18,10 +18,11 @@ public class Nhan_Vien_Model {
     private String diachinhanvien;
     private String emailnhanvien;
     private String ngayvaolamnhanvien;
-    private float luongnhanvien;
+    private double luongnhanvien;
     private String machucvunhanvien;
 
     public Nhan_Vien_Model() {
+        this.anhnhanvien = "";
         this.manhanvien = "";
         this.tennhanvien = "";
         this.gioitinhnhanvien = "";
@@ -32,18 +33,23 @@ public class Nhan_Vien_Model {
         this.luongnhanvien = 0;
         this.machucvunhanvien = "";                
     }
-  public Nhan_Vien_Model( String ma, String ten, String gioitinh, String ngaysinh, String sdt, String diachi, String email, float luong, String machucvu){
-         this.manhanvien = ma;
+  public Nhan_Vien_Model( String anh, String ma, String ten, String gioitinh, String ngaysinh, String sdt, String diachi, String email,String ngayvaolam, double luong, String machucvu){
+        this.anhnhanvien = anh;
+        this.manhanvien = ma;
         this.tennhanvien = ten;
         this.gioitinhnhanvien = gioitinh;
         this.ngaysinhnhanvien = ngaysinh;
         this.sdtnhanvien = sdt;
         this.diachinhanvien = diachi;
         this.emailnhanvien = email;
+        this.ngayvaolamnhanvien = ngayvaolam;
         this.luongnhanvien = luong;
         this.machucvunhanvien = machucvu;    
     }
 
+    public void setAnhnhanvien(String anhnhanvien){
+        this.anhnhanvien = anhnhanvien;
+    }
     public void setManhanvien(String manhanvien) {
         this.manhanvien = manhanvien;
     }
@@ -84,6 +90,9 @@ public class Nhan_Vien_Model {
         this.machucvunhanvien = machucvunhanvien;
     }
 
+    public String getAnhnhanvien(){
+        return this.anhnhanvien;
+    }
     public String getManhanvien() {
         return manhanvien;
     }
@@ -116,7 +125,7 @@ public class Nhan_Vien_Model {
         return ngayvaolamnhanvien;
     }
 
-    public float getLuongnhanvien() {
+    public double getLuongnhanvien() {
         return luongnhanvien;
     }
 

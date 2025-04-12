@@ -9,30 +9,28 @@ package MODEL;
  * @author tuntt
  */
 public class San_Pham_Model {
+    private String anh;
     private String masach;
     private String tensach;
-    private String maNXB;
+    private String tentacgia;
+    private String theloai;
     private int sotrang;
-    private float giaban;
+    private double giaban;
     private int soluong;
-    
-    public San_Pham_Model(){
-        this.masach = "";
-        this.tensach = "";
-        this.maNXB = "";
-        this.sotrang = 0;
-        this.giaban = 0;
-        this.soluong = 0;
-    }
-    public San_Pham_Model( String ma, String ten, String maNXB, int sotrang, float gia, int soluong){
-        this.masach = ma;
-        this.tensach = ten;
-        this.maNXB = maNXB;
+
+    public San_Pham_Model(String anh, String masach, String tensach, String tentacgia, String theloai, int sotrang, double giaban, int soluong) {
+        this.anh = anh;
+        this.masach = masach;
+        this.tensach = tensach;
+        this.tentacgia = tentacgia;
+        this.theloai = theloai;
         this.sotrang = sotrang;
-        this.giaban = gia;
+        this.giaban = giaban;
         this.soluong = soluong;
     }
-
+    public String getAnh(){
+        return anh;
+    }
     public String getMasach() {
         return masach;
     }
@@ -41,15 +39,19 @@ public class San_Pham_Model {
         return tensach;
     }
 
-    public String getMaNXB() {
-        return maNXB;
+    public String getTentacgia() {
+        return tentacgia;
+    }
+
+    public String getTheloai() {
+        return theloai;
     }
 
     public int getSotrang() {
         return sotrang;
     }
 
-    public float getGiaban() {
+    public double getGiaban() {
         return giaban;
     }
 
@@ -57,6 +59,10 @@ public class San_Pham_Model {
         return soluong;
     }
 
+    public void setAnh(String anh){
+        this.anh = anh;
+    }
+    
     public void setMasach(String masach) {
         this.masach = masach;
     }
@@ -65,15 +71,19 @@ public class San_Pham_Model {
         this.tensach = tensach;
     }
 
-    public void setMaNXB(String maNXB) {
-        this.maNXB = maNXB;
+    public void setTentacgia(String tentacgia) {
+        this.tentacgia = tentacgia;
+    }
+
+    public void setTheloai(String theloai) {
+        this.theloai = theloai;
     }
 
     public void setSotrang(int sotrang) {
         this.sotrang = sotrang;
     }
 
-    public void setGiaban(float giaban) {
+    public void setGiaban(double giaban) {
         this.giaban = giaban;
     }
 
@@ -81,4 +91,5 @@ public class San_Pham_Model {
         this.soluong = soluong;
     }
     
+   
 }

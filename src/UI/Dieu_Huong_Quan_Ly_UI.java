@@ -11,31 +11,28 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.*;
 
-import SERVICE.QLSP_Service;
-import SERVICE.QLNV_Sercive;
-import SERVICE.QLKH_Service;
-import SERVICE.QLDH_Service;
-
 /**
  *
  * @author tuntt
  */
 public class Dieu_Huong_Quan_Ly_UI extends JPanel implements ActionListener, MouseListener {
 
-
     public static final int width = 250;
     public static final int height = 720;
     private JLabel labelAdmin;
     private Layout_UI layout;
-    private Main main;
-    JButton buttonQLNV, buttonQLKH, buttonQLSP, buttonQLDH, buttonDoanhthu, buttonLuongNV, buttonQLAdmin, buttonLogout, buttonSelected = null;
+    private Main_UI main;
+
+    JButton buttonQLNV, buttonQLKH, buttonQLSP, buttonQLDH, buttonDoanhthu, buttonLuongNV, buttonTrangchu, buttonLogout, buttonSelected = null;
 
     private static final Color ColorButton = new Color(223, 228, 234);
     private static final Color ColorSelected = new Color(129, 236, 236);
 
-    public Dieu_Huong_Quan_Ly_UI( Main main) {
+    public Dieu_Huong_Quan_Ly_UI(Main_UI main, Layout_UI layout) {
+        this.layout = layout;
         this.main = main;
-        
+        //this.layout = layout;
+
         setPreferredSize(new Dimension(width, height));
         setLayout(new FlowLayout());
         setBackground(new java.awt.Color(53, 59, 72));
@@ -52,7 +49,12 @@ public class Dieu_Huong_Quan_Ly_UI extends JPanel implements ActionListener, Mou
         labelAdmin = new JLabel(new ImageIcon(img));
         panelAdmin.add(labelAdmin);
         this.add(panelAdmin);
+        
         // khởi tạo icon
+        
+        ImageIcon iconTrangchu = new ImageIcon("D:\\Lap_Trinh_Java\\images\\home.png");
+        Image imgTrangchu = iconTrangchu.getImage().getScaledInstance(50, 20, Image.SCALE_SMOOTH);
+        
         ImageIcon iconQLNV = new ImageIcon("D:\\Lap_Trinh_Java\\images\\QLNV.png");
         Image imgQLNV = iconQLNV.getImage().getScaledInstance(50, 20, Image.SCALE_SMOOTH); // Resize ảnh, width = 50px, height = 20px
 
@@ -74,133 +76,39 @@ public class Dieu_Huong_Quan_Ly_UI extends JPanel implements ActionListener, Mou
         ImageIcon iconLogout = new ImageIcon("D:\\Lap_Trinh_Java\\images\\logout.png");
         Image imgLogout = iconLogout.getImage().getScaledInstance(50, 20, Image.SCALE_SMOOTH);
 
-        buttonQLAdmin = new JButton("QL Admin");
-        buttonQLAdmin.setPreferredSize(new Dimension(width, 50));
-        buttonQLAdmin.setForeground(Color.black);
-        buttonQLAdmin.setBackground(ColorButton);
-        buttonQLAdmin.setOpaque(true);
-        buttonQLAdmin.setFocusPainted(false);
-        buttonQLAdmin.addActionListener(this);
-        buttonQLAdmin.addMouseListener(this);
+        buttonTrangchu = createButton("Trang Chủ",imgTrangchu);
+        buttonQLNV = createButton("QL Nhân Viên",imgQLNV);
+        buttonQLKH = createButton("QL Khách Hàng",imgQLKH);
+        buttonQLSP = createButton("QL Sản Phẩm",imgQLSP);
+        buttonQLDH = createButton("QL Đơn Hàng",imgQLDH);
+        buttonLuongNV = createButton("Bảng Lương Nhân Viên", imgLuongNV);
+        buttonDoanhthu = createButton("Thống Kê Doanh Thu",imgDoanhthu);
+        buttonLogout = createButton("Đăng Xuất",imgLogout);
 
-        this.add(buttonQLAdmin);
-
-        // all button
-        buttonQLNV = new JButton("QL Nhân Viên", new ImageIcon(imgQLNV));
-        buttonQLNV.setPreferredSize(new Dimension(width, 50));
-        //buttonQLNV.setBorderPainted(true); // Bật viền cho JButton
-        //buttonQLNV.setBorder(new RoundedBorder(30)); // Viền bo tròn 30px
-        buttonQLNV.setForeground(Color.black);
-        buttonQLNV.setBackground(ColorButton);
-        buttonQLNV.setOpaque(true);
-        buttonQLNV.setFocusPainted(false);// bỏ viền nhỏ bên trong button khi click chọn
-        buttonQLNV.addActionListener(this);
-        buttonQLNV.addMouseListener(this);
+        this.add(buttonTrangchu);
         this.add(buttonQLNV);
-
-        buttonQLKH = new JButton("QL Khách Hàng", new ImageIcon(imgQLKH));
-        buttonQLKH.setPreferredSize(new Dimension(width, 50));
-        //buttonQLNV.setBorderPainted(true); // Bật viền cho JButton
-        //buttonQLKH.setBorder(new RoundedBorder(30)); // Viền bo tròn 30px
-        buttonQLKH.setForeground(Color.black);
-        buttonQLKH.setBackground(ColorButton);
-        buttonQLKH.setOpaque(true);
-        buttonQLKH.setFocusPainted(false);
-        buttonQLKH.addActionListener(this);
-        buttonQLKH.addMouseListener(this);
-
         this.add(buttonQLKH);
-
-        buttonQLSP = new JButton("QL Sản Phẩm", new ImageIcon(imgQLSP));
-        buttonQLSP.setPreferredSize(new Dimension(width, 50));
-        //buttonQLNV.setBorderPainted(true); // Bật viền cho JButton
-        //buttonQLSP.setBorder(new RoundedBorder(30)); // Viền bo tròn 30px
-        buttonQLSP.setForeground(Color.black);
-        buttonQLSP.setBackground(ColorButton);
-        buttonQLSP.setOpaque(true);
-        buttonQLSP.setFocusPainted(false);
-        buttonQLSP.addActionListener(this);
-        buttonQLSP.addMouseListener(this);
         this.add(buttonQLSP);
-
-        buttonQLDH = new JButton("QL Đơn Hàng", new ImageIcon(imgQLDH));
-        buttonQLDH.setPreferredSize(new Dimension(width, 50));
-        //buttonQLNV.setBorderPainted(true); // Bật viền cho JButton
-        //buttonQLDH.setBorder(new RoundedBorder(30)); // Viền bo tròn 30px
-        buttonQLDH.setForeground(Color.black);
-        buttonQLDH.setBackground(ColorButton);
-        buttonQLDH.setOpaque(true);
-        buttonQLDH.setFocusPainted(false);
-        buttonQLDH.addActionListener(this);
-        buttonQLDH.addMouseListener(this);
         this.add(buttonQLDH);
-
-        buttonLuongNV = new JButton("Bảng Lương Nhân Viên", new ImageIcon(imgLuongNV));
-        buttonLuongNV.setPreferredSize(new Dimension(width, 50));
-        //buttonQLNV.setBorderPainted(true); // Bật viền cho JButton
-        //buttonLuongNV.setBorder(new RoundedBorder(30)); // Viền bo tròn 30px
-        buttonLuongNV.setForeground(Color.black);
-        buttonLuongNV.setBackground(ColorButton);
-        buttonLuongNV.setOpaque(true);
-        buttonLuongNV.setFocusPainted(false);
-        buttonLuongNV.addActionListener(this);
-        buttonLuongNV.addMouseListener(this);
         this.add(buttonLuongNV);
-
-        buttonDoanhthu = new JButton("Thống Kê Doanh Thu", new ImageIcon(imgDoanhthu));
-        buttonDoanhthu.setPreferredSize(new Dimension(width, 50));
-        //buttonQLNV.setBorderPainted(true); // Bật viền cho JButton
-        //buttonDoanhthu.setBorder(new RoundedBorder(30)); // Viền bo tròn 30px
-        buttonDoanhthu.setForeground(Color.black);
-        buttonDoanhthu.setBackground(ColorButton);
-        buttonDoanhthu.setOpaque(true);
-        buttonDoanhthu.setFocusPainted(false);
-        buttonDoanhthu.addActionListener(this);
-        buttonDoanhthu.addMouseListener(this);
         this.add(buttonDoanhthu);
-
-        buttonLogout = new JButton("Đăng Xuất", new ImageIcon(imgLogout));
-        buttonLogout.setPreferredSize(new Dimension(width, 50));
-        //buttonQLNV.setBorderPainted(true); // Bật viền cho JButton
-        //buttonLogout.setBorder(new RoundedBorder(30)); // Viền bo tròn 30px
-        buttonLogout.setForeground(Color.black);
-        buttonLogout.setBackground(ColorButton);
-        buttonLogout.setOpaque(true);
-        buttonLogout.setFocusPainted(false);
-        buttonLogout.addActionListener(this);
-        buttonLogout.addMouseListener(this);
         this.add(buttonLogout);
-
-//        buttonQLNV = createButton("QL Nhân Viên");
-//        buttonQLKH = createButton("QL Khách Hàng");
-//        buttonQLSP = createButton("QL Sản Phẩm");
-//        buttonQLDH = createButton("QL Đơn Hàng");
-//        buttonLuongNV = createButton("Bảng Lương Nhân Viên");
-//        buttonDoanhthu = createButton("Thống Kê Doanh Thu");
-//        buttonLogout = createButton("Đăng Xuất");
-//
-//        this.add(buttonQLNV);
-//        this.add(buttonQLKH);
-//        this.add(buttonQLSP);
-//        this.add(buttonQLDH);
-//        this.add(buttonLuongNV);
-//        this.add(buttonDoanhthu);
-//        this.add(buttonLogout);
     }
 
-//    private JButton createButton(String text) {
-//        JButton button = new JButton(text);
-//        button.setPreferredSize(new Dimension(width, 50));
-//        button.setForeground(Color.BLACK);
-//        button.setBackground(new java.awt.Color(223, 228, 234));
-//        button.setOpaque(true);
-//        button.setFocusPainted(false);
-//        button.addActionListener(this);
-//        button.addMouseListener(this);  // Thêm sự kiện chuột vào button
-//        return button;
-//    }
+    private JButton createButton(String text, Image icon) {
+        JButton button = new JButton(text, new ImageIcon(icon));
+        button.setPreferredSize(new Dimension(width, 50));
+        button.setForeground(Color.BLACK);
+        button.setBackground(new java.awt.Color(223, 228, 234));
+        button.setOpaque(true);
+        button.setFocusPainted(false);
+        button.addActionListener(this);
+        button.addMouseListener(this);  // Thêm sự kiện chuột vào button
+        return button;
+    }
+    
     private void ResetColor() {
-        buttonQLAdmin.setBackground(ColorButton);
+        buttonTrangchu.setBackground(ColorButton);
         buttonQLNV.setBackground(ColorButton);
         buttonQLKH.setBackground(ColorButton);
         buttonQLSP.setBackground(ColorButton);
@@ -216,19 +124,25 @@ public class Dieu_Huong_Quan_Ly_UI extends JPanel implements ActionListener, Mou
         ResetColor();
         button.setBackground(ColorSelected);
         buttonSelected = button;
-        if (button == buttonQLAdmin) {
+        if (button == buttonTrangchu) {
 
         } else if (button == buttonQLNV) {
-            layout.setPanelCenter(new QLNV_Sercive());
+            System.out.println("giao diện nhan vien");
+            //layout.setPanelCenter(new Nhan_Vien_UI());
         } else if (button == buttonQLKH) {
-            layout.setPanelCenter(new QLKH_Service());
+            System.out.println("giao dienj khach hang");
+            layout.setPanelCenter(new Khach_Hang_UI());
         } else if (button == buttonQLSP) {
-            layout.setPanelCenter(new QLSP_Service(this));
+            System.out.println("giao dien san pham");
+            //layout.setPanelCenter(new San_Pham_UI());
         } else if (button == buttonQLDH) {
-            layout.setPanelCenter(new QLDH_Service());
+            System.out.println("giao dien don hang");
+            layout.setPanelCenter(new Don_Hang_UI());
         } else if (button == buttonLuongNV) {
+            System.out.println("giao dien luong");
 
         } else if (button == buttonDoanhthu) {
+            System.out.println("giao dien doanh thu");
 
         } else {
 

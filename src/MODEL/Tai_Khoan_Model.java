@@ -10,13 +10,37 @@ package MODEL;
  */
 public class Tai_Khoan_Model {
     private String madangnhap;
+    private String tennhanvien;
     private String password;
-    private String machucvu;
-    
-    public Tai_Khoan_Model( String ma , String pass, String machucvu){
-        this.madangnhap = ma;
-        this.password = pass;
-        this.machucvu = machucvu;
+    private String maquyen;
+    private String tenquyen;
+    private String machucnang;
+    private String tenchucnang;
+    private int xem;
+    private int them;
+    private int sua;
+    private int xoa;
+    private int tim;
+
+    public Tai_Khoan_Model(String madangnhap, String tennhanvien, String password, String maquyen, String tenquyen, String machucnang, 
+            String tenchucnang, int xem, int them, int sua, int xoa, int tim) {
+        
+        this.madangnhap = madangnhap;
+        this.tennhanvien = tennhanvien;
+        this.password = password;
+        this.maquyen = maquyen;
+        this.tenquyen = tenquyen;
+        this.machucnang = machucnang;
+        this.tenchucnang = tenchucnang;
+        this.xem = xem;
+        this.them = them;
+        this.sua = sua;
+        this.xoa = xoa;
+        this.tim = tim;
+    }
+
+    public String getTennhanvien() {
+        return tennhanvien;
     }
 
     public String getMadangnhap() {
@@ -27,8 +51,44 @@ public class Tai_Khoan_Model {
         return password;
     }
 
-    public String getMachucvu() {
-        return machucvu;
+    public String getMaquyen() {
+        return maquyen;
+    }
+
+    public String getTenquyen() {
+        return tenquyen;
+    }
+
+    public String getMachucnang() {
+        return machucnang;
+    }
+
+    public String getTenchucnang() {
+        return tenchucnang;
+    }
+
+    public int getXem() {
+        return xem;
+    }
+
+    public int getThem() {
+        return them;
+    }
+
+    public int getSua() {
+        return sua;
+    }
+
+    public int getXoa() {
+        return xoa;
+    }
+    
+    public int getTim() {
+        return tim;
+    }
+
+    public void setTennhanvien(String tennhanvien) {
+        this.tennhanvien = tennhanvien;
     }
 
     public void setMadangnhap(String madangnhap) {
@@ -39,8 +99,42 @@ public class Tai_Khoan_Model {
         this.password = password;
     }
 
-    public void setMachucvu(String machucvu) {
-        this.machucvu = machucvu;
+    public void setMaquyen(String maquyen) {
+        this.maquyen = maquyen;
     }
+
+    public void setTenquyen(String tenquyen) {
+        this.tenquyen = tenquyen;
+    }
+
+    public void setMachucnang(String machucnang) {
+        this.machucnang = machucnang;
+    }
+
+    public void setTenchucnang(String tenchucnang) {
+        this.tenchucnang = tenchucnang;
+    }
+
+    public void setXem(int xem) {
+        this.xem = xem;
+    }
+
+    public void setThem(int them) {
+        this.them = them;
+    }
+
+    public void setSua(int sua) {
+        this.sua = sua;
+    }
+
+    public void setXoa(int xoa) {
+        this.xoa = xoa;
+    }
+    
+    public void setTim(int tim) {
+        this.tim = tim;
+    }
+    
+    
     
 }
